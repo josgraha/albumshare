@@ -4,6 +4,7 @@ const {
     View,
     Text,
     TouchableHighlight,
+    ListView
 } = React;
 
 const styles = React.StyleSheet.create({
@@ -39,6 +40,7 @@ class AlbumPicker extends React.Component {
     }
     constructor(props, context) {
         super(props, context);
+
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
         this.setState({
             dataSource: ds.cloneWithRows(this._genRows({})),

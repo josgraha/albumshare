@@ -5,37 +5,51 @@ import {
   Platform,
   StyleSheet,
   Text,
+  ListView,
+  TouchableHighlight,
   View,
 } from 'react-native';
 
 import { Font } from 'exponent';
 
-import AlbumPicker from './Screens/AlbumPicker';
-
+var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class AppContainer extends React.Component {
 
   state = {
       assetsLoaded: false,
+      dataSource: ds.cloneWithRows([
+           "First Album",
+           "Second Album",
+           "Third Album",
+       ]),
   }
 
-  async componentWillMount() {
-    await Font.loadAsync({
-        awesome: 'https://github.com/FortAwesome/Font-Awesome/raw/master/fonts/fontawesome-webfont.ttf',
-    });
 
-    this.setState({assetsLoaded: true});
+  constructor(props, context) {
+      super(props, context);
   }
 
   render() {
-      if (!this.state.assetsLoaded) {
-        return <View />;
-      }
-
       return (
     <View style={styles.container}>
-      <AlbumPicker />
+    <ListView
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) => <Text>{rowData}</Text>} />
+    <TouchableHighlight
+onPress={this.onSharePressed.bind(this)}
+style={styles.button}
+>
+<Text
+    style={styles.buttonText}
+>
+    Share
+</Text>
+</TouchableHighlight>
     </View>
     );
+  }
+
+  onSharePressed() {
   }
 
 }
