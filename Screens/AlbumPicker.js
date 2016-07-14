@@ -1,18 +1,30 @@
-import React from 'react-native';
+import React from 'react';
 
-const {
+import {
     View,
     Text,
     TouchableHighlight,
-    ListView
-} = React;
+    ListView,
+    StyleSheet,
+} from 'react-native';
 
-const styles = React.StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        paddingTop: 150,
         backgroundColor: '#F7F7F7',
+    },
+    header: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        justifyContent: 'flex-end',
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 5,
+    },
+    listItem: {
+        marginLeft: 5,
+        fontSize: 18,
     },
     buttonText: {
         fontSize: 18,
@@ -26,6 +38,7 @@ const styles = React.StyleSheet.create({
         marginTop: 10,
         marginLeft: 10,
         marginRight: 10,
+        marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -34,17 +47,21 @@ const styles = React.StyleSheet.create({
     },
 });
 
+var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
+
+
 class AlbumPicker extends React.Component {
+
     state = {
-        dataSource: null,
+        dataSource: ds.cloneWithRows([
+            "First Album",
+            "Second Album",
+            "Third Album",
+        ]),
     }
+
     constructor(props, context) {
         super(props, context);
-
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
-        this.setState({
-            dataSource: ds.cloneWithRows(this._genRows({})),
-        });
     }
 
     onSharePressed() {
@@ -53,29 +70,19 @@ class AlbumPicker extends React.Component {
     render() {
       return (
         <View style={styles.container}>
+        <Text style={styles.header}>Albums</Text>
         <ListView
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Text>{rowData}</Text>} />
-        <TouchableHighlight
-    onPress={this.onSharePressed.bind(this)}
-    style={styles.button}
->
-    <Text
-        style={styles.buttonText}
-    >
-        Share
-    </Text>
-</TouchableHighlight>
+            renderRow={(rowData) => <Text style={styles.listItem}>{rowData}</Text>} />
+            <TouchableHighlight onPress={this.onSharePressed.bind(this)} style={styles.button} >
+            <Text
+                style={styles.buttonText}
+            >
+                Share
+            </Text>
+            </TouchableHighlight>
         </View>
       );
-    }
-
-    _genRows(initialObj) {
-        return [
-            "First Album",
-            "Second Album",
-            "Third Album"
-        ];
     }
 }
 
