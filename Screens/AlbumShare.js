@@ -1,16 +1,11 @@
 import React from 'react';
 
 import {
-  AppRegistry,
-  Platform,
   StyleSheet,
   Text,
-  ListView,
   TouchableHighlight,
   View,
 } from 'react-native';
-
-import AlbumPicker from './Screens/AlbumPicker';
 
 class AlbumShare extends React.Component {
 
@@ -24,7 +19,7 @@ class AlbumShare extends React.Component {
   render() {
       return (
     <View style={styles.container}>
-    <AlbumPicker />
+    <Text>This is to share</Text>
     </View>
     );
   }
@@ -34,8 +29,9 @@ class AlbumShare extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#fff',
-    marginTop: Platform.OS === 'ios' ? 24 : 24,
   },
 });
 

@@ -2,7 +2,7 @@ import React, {
   AppRegistry,
 } from 'react-native';
 
-import AlbumShare from './AlbumShare';
+import AppNavigator from './AppNavigator';
 
 
-AppRegistry.registerComponent('main', () => AlbumShare);
+AppRegistry.registerComponent('main', () => AppNavigator);
